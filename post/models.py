@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from django.db.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 import uuid
@@ -35,7 +35,7 @@ class Tag(models.Model):
     
 
 class Post(models.Model):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable=false)
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
     caption = models.CharField(max_length=500000, verbose_name="Caption")
     posted = models.DateTimeField(auto_now_add=True)
@@ -52,4 +52,21 @@ class Post(models.Model):
     
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
+    
+class Stream(models.Model):
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="stream_follower")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="stream_user")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    date = models.DateTimeField()
+    
+    def add_post(sender, instance, *args, **kwargs):
+        post = instance
+        user = post.user
+        followers = Follow.objects.all().filter(following=user)
+        for follower in followers:
+            stream = Stream(post=post, user=follower.follower, date=post.posted, following=user)
+            stream.save()
+            
+post_save.connect(Stream.add_post, sender=Post)
+
