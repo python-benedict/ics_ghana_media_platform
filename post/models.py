@@ -48,6 +48,8 @@ class Post(models.Model):
         return reverse('post-details', args=[str(self.id)])
     
     def __str__(self):
-        return self.title
+        return self.caption
     
-    
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
