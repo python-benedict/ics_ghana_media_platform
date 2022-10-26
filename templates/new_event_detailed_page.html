@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block content %}
+
+     
+
+      <!-- Videos Section -->
+     <div class="detailPage_videos">
+        <div class="detailPage_videos__container">
+          <!-- Single Video starts -->
+            <div class="detailPage_video">
+                <div class="detailPage_video__thumbnail">
+                <img src="{{ neventdetail.picture.url }}" alt="" />
+                </div>
+                <div class="video__details">
+                    <div class="detailPage_author">
+                        <img
+                        src="{{ neventdetail.picture.url }}"
+                        alt=""
+                        />
+                    </div>
+                    <div class="detailPage_title">
+                        <h3> <a href=""> {{ neventdetail.title }}</a></h3>
+                        <h2><b>{% for tag in neventdetail.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></h2>
+                        <h2><b><a href=""> {{neventdetail.user.username}}, {{neventdetail.likes}} likes </a></b></h2>
+                        <h2> <b> <a href="">{{neventdetail.posted}}</a> </b></h2><br>
+                        <h4> <a href=""> {{ neventdetail.caption }}</a></h4>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Single Video Ends here -->
+        </div>
+      </div>
+    </div>
+   
+   {% endblock content %}
