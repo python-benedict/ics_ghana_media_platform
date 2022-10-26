@@ -35,7 +35,7 @@ class Tag(models.Model):
     
 
 class Post(models.Model):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4)
+    #id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable=False)
     title = models.CharField(max_length=500, verbose_name="title", blank=True)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
     caption = models.CharField(max_length=500000, verbose_name="Caption")
@@ -53,7 +53,7 @@ class Post(models.Model):
     
    
 class TreandingPost(models.Model):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4)
+    #id = models.UUIDField(primary_key = True, default = uuid.uuid4)
     title = models.CharField(max_length=500, verbose_name="title", blank=True)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
     caption = models.CharField(max_length=500000, verbose_name="Caption")
@@ -71,7 +71,7 @@ class TreandingPost(models.Model):
 
     
 class NewEvent(models.Model):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4)
+    #id = models.UUIDField(primary_key = True, default = uuid.uuid4)
     title = models.CharField(max_length=500, verbose_name="title", blank=True)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
     caption = models.CharField(max_length=500000, verbose_name="Caption")
@@ -89,7 +89,7 @@ class NewEvent(models.Model):
     
 
 class InternationalNews(models.Model):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4)
+    #id = models.UUIDField(primary_key = True, default = uuid.uuid4)
     title = models.CharField(max_length=500, verbose_name="title", blank=True)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
     caption = models.CharField(max_length=500000, verbose_name="Caption")
@@ -126,3 +126,10 @@ class Stream(models.Model):
             
 post_save.connect(Stream.add_post, sender=Post)
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    
+    

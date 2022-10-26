@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'post',
     'crispy_forms',
 ]
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,3 +144,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = 'home'

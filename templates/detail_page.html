@@ -24,9 +24,21 @@
                         <h3> <a href=""> {{ detailed_page.title }}</a></h3>
                         <h2><b>{% for tag in detailed_page.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></h2>
                         <h2><b><a href=""> {{detailed_page.user.username}}, {{detailed_page.likes}} likes </a></b></h2>
+                        <form method="POST">
+                          {% csrf_token %}
+                          <input type="text" required name="body"/>
+
+                          <button type="submit">Post HERE</button>
+                        </from>
                         <h2> <b> <a href="">{{detailed_page.posted}}</a> </b></h2><br>
                         <h4> <a href=""> {{ detailed_page.caption }}</a></h4>
+                        {% for comment in comments %}
+                          {{comment.body}}
+                          {{comment.user.username}}
+                        {% endfor %}
                     </div>
+                    
+
                 </div>
             </div>
 

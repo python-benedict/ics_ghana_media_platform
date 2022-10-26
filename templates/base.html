@@ -15,7 +15,7 @@
   </head>
   <body>
 
-
+    {% if user.is_authenticated %}
     <!-- Header Starts -->
     <div class="header">
       <div class="header__left">
@@ -48,6 +48,10 @@
       <!-- Sidebar Starts -->
       <div class="sidebar">
         <div class="sidebar__categories">
+          <div class="sidebar__category">
+            <i class="material-icons">waving_hand</i>
+            <span><a style="text-decoration:none; color: rgb(96, 96, 96);" href="{% url 'newevent' %}">Welcome {{ user.username }}</a></span>
+          </div>
           <div class="sidebar__category">
             <i class="material-icons">event</i>
             <span><a style="text-decoration:none; color: rgb(96, 96, 96);" href="{% url 'newevent' %}">New Event</a></span>
@@ -95,11 +99,22 @@
             <i class="material-icons">verified</i>
             <span>Advertisement</span>
           </div>
+          <div class="sidebar__category">
+            <i class="material-icons">logout</i>
+            <span><a style="text-decoration:none; color: rgb(96, 96, 96);" href="{% url 'logout' %}">Logout?</a></span>
+          </div>
 
         </div>
         <hr />
       </div>
       <!-- Sidebar Ends -->
+      {% else %}
+        <div class="alert alert-success" role="alert">
+            <h3>Welcome!</h3>
+            <a href="{% url 'register' %}">Signup</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+      {% endif %}
 
 
 
