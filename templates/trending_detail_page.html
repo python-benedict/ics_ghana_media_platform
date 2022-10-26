@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block content %}
+
+     
+      <!-- Videos Section -->
+     <div class="detailPage_videos">
+        <div class="detailPage_videos__container">
+          <!-- Single Video starts -->
+            <div class="detailPage_video">
+                <div class="detailPage_video__thumbnail">
+                <img src="{{ trending_detailed_pages.picture.url }}" alt="" />
+                </div>
+                <div class="video__details">
+                    <div class="detailPage_author">
+                        <img
+                        src="{{ trending_detailed_pages.picture.url }}"
+                        alt=""
+                        />
+                    </div>
+                    <div class="detailPage_title">
+                        <h3> <a href=""> {{ trending_detailed_pages.title }}</a></h3>
+                        <h2><b>{% for tag in trending_detailed_pages.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></h2>
+                        <h2><b><a href=""> {{trending_detailed_pages.user.username}}, {{trending_detailed_pages.likes}} likes </a></b></h2>
+                        <h2> <b> <a href="">{{trending_detailed_pages.posted}}</a> </b></h2>
+                        <h4> <a href=""> {{ trending_detailed_pages.caption }}</a></h4>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Single Video Ends here -->
+        </div>
+      </div>
+    </div>
+   
+   {% endblock content %}

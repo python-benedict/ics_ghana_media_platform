@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block content %}
+
+     
+
+      <!-- Videos Section -->
+      <div class="videos">
+        <h1></h1>
+
+        <div class="videos__container">
+          <!-- Single Video starts -->
+          {% for trend in trending_items %}
+
+          <div class="video">
+            <div class="video__thumbnail">
+              <a href="{% url 'trending_detailed_page' trend.id %}"><img src="{{ trend.picture.url }}" alt="" /></a>
+            </div>
+            <div class="video__details">
+              <div class="author">
+                <img
+                  src="{{ trend.picture.url }}"
+                  alt=""
+                />
+              </div>
+              <div class="title">
+                <h3> <a href="{% url 'trending_detailed_page' trend.id %}"> {{trend.title}}</a></h3>
+                 <pre><b><a href="{% url 'trending_detailed_page' trend.id %}"> {{trend.user.username}}, {{trend.likes}} likes </a></b></pre>
+                 {% comment %} <pre><b>{% for tag in post.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></pre> {% endcomment %}
+                <pre> <b>{{trend.posted}}</b></pre>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+          <!-- Single Video Ends here -->
+        </div>
+      </div>
+    </div>
+   
+   {% endblock content %}
