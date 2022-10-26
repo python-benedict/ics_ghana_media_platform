@@ -71,6 +71,8 @@ body {
   overflow: hidden;
 }
 
+
+
 .sidebar {
   height: 100%;
   width: 230px;
@@ -177,6 +179,88 @@ span {
   color: rgb(96, 96, 96);
   font-size: 14px;
 }
+
+/* End of video */
+
+/* Detailed Page Video Start */
+
+
+
+.detailPage_videos {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px;
+  border-top: 1px solid #ddd;
+  overflow-y: scroll;
+}
+
+/* .detailPage_videos__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+} */
+
+.detailPage_video {
+  width: 100%;
+
+  margin-bottom: 30px;
+}
+
+.detailPage_video__thumbnail {
+  width: 100%;
+  height: 80%;
+}
+
+.detailPage_video__thumbnail img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.detailPage_author img {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.detailPage_video__details {
+  display: flex;
+  margin-top: 10px;
+}
+
+.detailPage_title {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailPage_title h3 a{
+  color: rgb(107, 86, 86);
+  line-height: 45px;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.detailPage_title h4 a{
+  color: rgb(14, 13, 13);
+  line-height: 130px;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.detailPage_title a,
+span {
+  text-decoration: none;
+  color: rgb(96, 96, 96);
+  font-size: 14px;
+}
+
+
+/* Detailed Page Video End */
+
 
 h1 {
   font-size: 20px;

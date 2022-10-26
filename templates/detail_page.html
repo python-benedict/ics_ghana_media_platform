@@ -89,34 +89,30 @@
       <!-- Sidebar Ends -->
 
       <!-- Videos Section -->
-      <div class="videos">
-        <h1></h1>
-
-        <div class="videos__container">
+     <div class="detailPage_videos">
+        <div class="detailPage_videos__container">
           <!-- Single Video starts -->
-          {% for post in post_items %}
-
-          <div class="video">
-            <div class="video__thumbnail">
-              <a href="{% url 'detailed_page' post.id %}"><img src="{{ post.picture.url }}" alt="" /></a>
+            <div class="detailPage_video">
+                <div class="detailPage_video__thumbnail">
+                <img src="{{ detailed_page.picture.url }}" alt="" />
+                </div>
+                <div class="video__details">
+                    <div class="detailPage_author">
+                        <img
+                        src="{{ detailed_page.picture.url }}"
+                        alt=""
+                        />
+                    </div>
+                    <div class="detailPage_title">
+                        <h3> <a href=""> {{ detailed_page.title }}</a></h3>
+                        <h2><b>{% for tag in detailed_page.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></h2>
+                        <h2><b><a href=""> {{detailed_page.user.username}}, {{detailed_page.likes}} likes </a></b></h2>
+                        <h2> <b> <a href="">{{detailed_page.posted}}</a> </b></h2>
+                        <h4> <a href=""> {{ detailed_page.caption }}</a></h4>
+                    </div>
+                </div>
             </div>
-            <div class="video__details">
-              <div class="author">
-                <img
-                  src="{{ post.picture.url }}"
-                  alt=""
-                />
-              </div>
-              <div class="title">
-                <h3> <a href="{% url 'detailed_page' post.id %}"> {{post.title}}</a></h3>
-                 <pre><b><a href="{% url 'detailed_page' post.id %}"> {{post.user.username}}, {{post.likes}} likes </a></b></pre>
-                 {% comment %} <pre><b>{% for tag in post.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></pre> {% endcomment %}
-                <pre> <b>{{post.posted}}</b></pre>
-              </div>
-            </div>
-          </div>
 
-          {% endfor %}
           <!-- Single Video Ends here -->
         </div>
       </div>

@@ -21,8 +21,8 @@ class Tag(models.Model):
         verbose_name_plural = 'Tags'
     
     #this will help you get all the post associated with the tag
-    def get_absolute_url(self):
-        return reverse('tags', args=[self.slug])
+    # def get_absolute_url(self):
+    #     return reverse('tags', args=[self.slug])
     
     def __str__(self):
         return self.title
@@ -36,6 +36,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4)
+    title = models.CharField(max_length=500, verbose_name="title", blank=True)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
     caption = models.CharField(max_length=500000, verbose_name="Caption")
     posted = models.DateTimeField(auto_now_add=True)
