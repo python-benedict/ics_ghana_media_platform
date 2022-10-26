@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block content %}
+
+
+      <!-- Videos Section -->
+      <div class="videos">
+        <h1></h1>
+
+        <div class="videos__container">
+          <!-- Single Video starts -->
+          {% for newevent in newEvent_items %}
+
+          <div class="video">
+            <div class="video__thumbnail">
+              <a href="{% url 'detailed_newEvent' newevent.id %}"><img src="{{ newevent.picture.url }}" alt="" /></a>
+            </div>
+            <div class="video__details">
+              <div class="author">
+                <img
+                  src="{{ newevent.picture.url }}"
+                  alt=""
+                />
+              </div>
+              <div class="title">
+                <h3> <a href="{% url 'detailed_newEvent' newevent.id %}"> {{newevent.title}}</a></h3>
+                 <pre><b><a href="{% url 'detailed_newEvent' newevent.id %}"> {{newevent.user.username}}, {{newevent.likes}} likes </a></b></pre>
+                 {% comment %} <pre><b>{% for tag in post.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></pre> {% endcomment %}
+                <pre> <b>{{newevent.posted}}</b></pre>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+          <!-- Single Video Ends here -->
+        </div>
+      </div>
+    </div>
+   
+   {% endblock content %}
