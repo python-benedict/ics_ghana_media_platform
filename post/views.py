@@ -2,10 +2,10 @@ from xml.etree.ElementTree import Comment
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment, TechnologicalNews
+from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment, TechnologicalNews, LocalNewsComment, LocalNews
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm, TechnologicalNewsCommentForm, TechnologicalNewsComment
+from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm, TechnologicalNewsCommentForm, TechnologicalNewsComment, LocalNewsCommentForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -85,7 +85,7 @@ def technologicalnews(request):
     return render(request, "technologicalnews.html", context)
 
 
-#Home Detailed Post
+#Technological NEWS Detailed Page
 def technologicalNewsDetailPage(request, id):   
     #Comment form
     if request.method == 'POST':
@@ -106,6 +106,35 @@ def technologicalNewsDetailPage(request, id):
     return render(request, 'technologicalnewdetailpage.html', context)
 
 
+
+# Local News List View here.
+def localnews(request):
+    posts = LocalNews.objects.all().order_by('-posted')
+    context = {
+        'post_items' :  posts   
+    }
+    return render(request, "localnews.html", context)
+
+
+#Technological NEWS Detailed Page
+def localnewsdetailedpage(request, id):   
+    #Comment form
+    if request.method == 'POST':
+        post = LocalNews.objects.get(id=id)
+        body = request.POST.get("body")
+        commment = LocalNewsComment.objects.create(post=post, user=request.user, body=body)
+        print(commment.body)
+
+    detailed_page = LocalNews.objects.get(pk=id)
+    comments = LocalNewsComment.objects.filter(post=detailed_page).order_by('-date')
+    form = LocalNewsCommentForm()
+    
+    context = {
+        'detailed_page':detailed_page,
+        'form':form,
+        'comments': comments,
+    }   
+    return render(request, 'localnewsdetailedpage.html', context)
 
 
 
