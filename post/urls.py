@@ -15,10 +15,12 @@ urlpatterns = [
     path('trending/', views.trending, name="trending"),
     path('newevent/', views.newEvent, name="newevent"),
     path('internationalnews/', views.internationalnews, name="internationalnews"),
+    path('technologicalnews/', views.technologicalnews, name="technologicalnews"),
     path('newEvent/<int:id>', views.detail_newEvent, name="detailed_newEvent"),
     path('detail/<int:id>/', views.detail_page, name="detailed_page"),
     path('trendings/<int:id>/', views.trending_detailed_page, name="trending_detailed_page"),
     path('internationalnewsDetail/<int:id>/', views.InternationNewsDetailedPage, name="internationalnewsDetail"),
+    path('technologicalNewsDetailPage/<int:id>/', views.technologicalNewsDetailPage, name="technologicalNewsDetailPage"),
     path("register/", views.register, name="register"),
     
     

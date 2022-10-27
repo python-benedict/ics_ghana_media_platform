@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, InternationalNewsComment
+from .models import Comment, InternationalNewsComment, TechnologicalNewsComment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -17,6 +17,13 @@ class InternationalNewsCommentForm(forms.ModelForm):
     class Meta:
         model = InternationalNewsComment
         fields = ['body', 'user', 'post']
+  
+class TechnologicalNewsCommentForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.TimeInput(attrs={'class':'input', 'placeholder':'Enter Comment'}),required=False)
+    
+    class Meta:
+        model = TechnologicalNewsComment
+        fields = ['body', 'user', 'post']  
     
     
 #registration form

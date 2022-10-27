@@ -69,6 +69,24 @@ class TreandingPost(models.Model):
     def __str__(self):
         return self.caption    
 
+
+class LocalNews(models.Model):
+    #id = models.UUIDField(primary_key = True, default = uuid.uuid4)
+    title = models.CharField(max_length=500, verbose_name="title", blank=True)
+    picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
+    caption = models.CharField(max_length=500000, verbose_name="Caption")
+    posted = models.DateTimeField(auto_now_add=True)
+    tag = models.ManyToManyField(Tag, related_name="localnews")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.IntegerField(default=0)
+    
+    #this will help you get all the post associated with the id
+    def get_absolute_url(self):
+        return reverse('post-details', args=[str(self.id)])
+    
+    def __str__(self):
+        return self.caption    
+    
     
 class NewEvent(models.Model):
     #id = models.UUIDField(primary_key = True, default = uuid.uuid4)

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block content %}
+
+     
+
+      <!-- Videos Section -->
+     <div class="detailPage_videos">
+        <div class="detailPage_videos__container">
+          <!-- Single Video starts -->
+            <div class="detailPage_video">
+                <div class="detailPage_video__thumbnail">
+                <img src="{{ detailed_page.picture.url }}" alt="" />
+                </div>
+                <div class="video__details">
+                    <div class="detailPage_author">
+                        <img
+                        src="{{ detailed_page.picture.url }}"
+                        alt=""
+                        />
+                    </div>
+                    <div class="detailPage_title">
+                        <h3> <a href=""> {{ detailed_page.title }}</a></h3>
+                        <h2><b>{% for tag in detailed_page.tag.all%}<a href="{{tag.get_absolute_url}}"> #{{tag}} </a><br>{% endfor %}</b></h2>
+                        <h2><b><a href=""> {{detailed_page.user.username}}, {{detailed_page.likes}} likes </a></b></h2>
+                        <form method="POST">
+                          {% csrf_token %}
+                          <input type="text" required name="body"/>
+
+                          <button type="submit">Post HERE</button>
+                        </from>
+                        <h2> <b> <a href="">{{detailed_page.posted}}</a> </b></h2><br>
+                        <h4> <a href=""> {{ detailed_page.caption }}</a></h4>
+                        {% for comment in comments %}
+                        <hr style="width:200px;">
+                        {{comment.user.username}} : {{comment.body}}
+                          
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+          <!-- Single Video Ends here -->          
+        </div>
+      </div>
+    </div>
+   
+   {% endblock content %}
+
+   

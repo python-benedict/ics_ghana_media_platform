@@ -2,10 +2,10 @@ from xml.etree.ElementTree import Comment
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment
+from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment, TechnologicalNews
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm
+from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm, TechnologicalNewsCommentForm, TechnologicalNewsComment
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -73,6 +73,37 @@ def InternationNewsDetailedPage(request, id):
         'comments': comments,
     }   
     return render(request, 'int_detail_page.html', context)
+
+
+
+# Technological News List View here.
+def technologicalnews(request):
+    posts = TechnologicalNews.objects.all().order_by('-posted')
+    context = {
+        'post_items' :  posts   
+    }
+    return render(request, "technologicalnews.html", context)
+
+
+#Home Detailed Post
+def technologicalNewsDetailPage(request, id):   
+    #Comment form
+    if request.method == 'POST':
+        post = TechnologicalNews.objects.get(id=id)
+        body = request.POST.get("body")
+        commment = TechnologicalNewsComment.objects.create(post=post, user=request.user, body=body)
+        print(commment.body)
+
+    detailed_page = TechnologicalNews.objects.get(pk=id)
+    comments = TechnologicalNewsComment.objects.filter(post=detailed_page).order_by('-date')
+    form = TechnologicalNewsCommentForm()
+    
+    context = {
+        'detailed_page':detailed_page,
+        'form':form,
+        'comments': comments,
+    }   
+    return render(request, 'technologicalnewdetailpage.html', context)
 
 
 
