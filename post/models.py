@@ -179,6 +179,12 @@ class TechnologicalNewsComment(models.Model):
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     
+class LocalNewsComment(models.Model):
+    post = models.ForeignKey(LocalNews, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    
 class Profile(models.Model):
     about_me = models.TextField()
     image = models.ImageField(upload_to='profile_image', null=True, blank=True)
