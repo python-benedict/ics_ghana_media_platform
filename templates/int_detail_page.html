@@ -33,8 +33,9 @@
                         <h2> <b> <a href="">{{detailed_page.posted}}</a> </b></h2><br>
                         <h4> <a href=""> {{ detailed_page.caption }}</a></h4>
                         {% for comment in comments %}
-                          {{comment.body}}
-                          {{comment.user.username}}
+                        <hr style="width:200px;">
+                        {{comment.user.username}} : {{comment.body}}
+                          
                         {% endfor %}
                     </div>
                     

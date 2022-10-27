@@ -2,10 +2,10 @@ from xml.etree.ElementTree import Comment
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile
+from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import CommentForm, UserRegistrationForm, EditProfileForm
+from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -39,9 +39,44 @@ def detail_page(request, id):
         'detailed_page':detailed_page,
         'form':form,
         'comments': comments,
-    }
-    
+    }   
     return render(request, 'detail_page.html', context)
+
+
+
+# Create your views here.
+def internationalnews(request):
+    posts = InternationalNews.objects.all().order_by('-posted')
+    context = {
+        'post_items' :  posts   
+    }
+    return render(request, "internationalnews.html", context)
+
+
+#Home Detailed Post
+def InternationNewsDetailedPage(request, id):   
+    #Comment form
+    if request.method == 'POST':
+        post = InternationalNews.objects.get(id=id)
+        body = request.POST.get("body")
+        commment = InternationalNewsComment.objects.create(post=post, user=request.user, body=body)
+        print(commment.body)
+    
+    #detailed_page = get_object_or_404(Post, id=id)
+    detailed_page = InternationalNews.objects.get(pk=id)
+    comments = InternationalNewsComment.objects.filter(post=detailed_page).order_by('-date')
+    form = InternationalNewsCommentForm()
+    
+    context = {
+        'detailed_page':detailed_page,
+        'form':form,
+        'comments': comments,
+    }   
+    return render(request, 'int_detail_page.html', context)
+
+
+
+
 
 
 
@@ -54,11 +89,9 @@ def trending(request):
     return render(request, "trending.html", context)
 
 
-
 #Trending Detailed Post
 def trending_detailed_page(request, id):
-    #trending_detail_page = get_object_or_404(TreandingPost, pk=id)
-    trending_detail_page = TreandingPost.objects.get(pk=id)
+    trending_detail_page = TreandingPost.objects.get(id=id)
     return render(request, 'trending_detail_page.html', {'trending_detailed_pages':trending_detail_page})
 
 
@@ -73,12 +106,11 @@ def newEvent(request):
 
 #New Event Detailed Post
 def detail_newEvent(request, id):
-    #detailNewEventPage = get_object_or_404(NewEvent, pk=id)
-    detailNewEventPage = NewEvent.objects.get(pk=id)
+    detailNewEventPage = NewEvent.objects.get(id=id)
     return render(request, 'new_event_detailed_page.html', {'neventdetail':detailNewEventPage})
 
-#Registration view
 
+#Registration view
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -125,3 +157,6 @@ def edit_profile(request):
     else:
         form = EditProfileForm(request.user.username)
     return render(request, "edit_profile.html", {'form': form})
+
+
+
