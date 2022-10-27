@@ -11,7 +11,7 @@
 
     <!-- CSS File -->
     <link rel="stylesheet" href={% static 'styles.css'%} />
-    <title>International Conglomerate Solution</title>
+    <title>{% block head_title %}{% endblock head_title %}</title>
   </head>
   <body>
 
@@ -38,7 +38,11 @@
         <i class="material-icons">videocam</i>
         <i class="material-icons">apps</i>
         <i class="material-icons">notifications</i>
+        
+        <a href="{% url 'profile' request.user.username %}"
+        class="nav-item nav-link {% if request.user.username in request.path %}active{% endif %}">
         <i class="material-icons display-this">account_circle</i>
+        </a>
       </div>
     </div>
     <!-- Header Ends -->
@@ -61,7 +65,7 @@
             <span>International News</span>
           </div>
           <div class="sidebar__category">
-            <i class="material-icons">sync_alt</i>
+            <i class="material-icons">trending_up</i>
             <span><a style="text-decoration:none; color: rgb(96, 96, 96);" href="{% url 'trending' %}">Trending</a></span>
           </div>
         </div>

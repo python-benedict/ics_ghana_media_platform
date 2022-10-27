@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}{{ user.username }} profile page{% endblock head_title %}
+
+{% block content %}
+      
+<!-- Videos Section -->
+<div class="detailPage_videos">
+    <div class="detailPage_videos__container">
+      <!-- Single Video starts -->
+        <div class="detailPage_video">
+            {% if user.profile.image %}
+            <div class="detailPage_video__thumbnail">
+                <img src="{{ profile.image.url }}" alt="{{ user.username }}">
+            </div>
+            {% else %}
+            <div class="video__details">
+                <div class="detailPage_author">
+                    <img src="{{ profile.image.url }}" alt="{{ user.username }}">
+                </div>
+            {% endif %}
+                <div class="detailPage_title">
+                    <h3> <a href="">{{ user.username }}</a></h3>         
+                    <h2> <b> <a href="">Last login on: {{ user.last_login }}</a> </b></h2><br>
+                    <h4> <a href=""> {{ user.profile.about_me }}</a></h4>
+                </div>
+                <p><a href="{% url 'edit_profile' %}">Edit your profile</a></p>
+                <p><a href="{% url 'password_change' %}">Change password</a></p>
+
+            </div>
+        </div>
+
+      <!-- Single Video Ends here -->
+    </div>
+  </div>
+</div>
+    
+{% endblock %}
+
+  
