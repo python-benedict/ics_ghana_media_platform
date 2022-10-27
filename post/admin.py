@@ -1,5 +1,5 @@
 from django.contrib import admin
-from post.models import Tag, Post, Follow, Stream, TreandingPost, NewEvent, InternationalNews, Comment, Profile, TechnologicalNews, LocalNews, LocalNewsComment, TechnologicalNewsComment
+from post.models import Tag, Post, Follow, Stream, TreandingPost, NewEvent, InternationalNews, Comment, Profile, TechnologicalNews, LocalNews, LocalNewsComment, TechnologicalNewsComment, Articles, ArticlesComment
 
 # Register your models here.
 
@@ -16,3 +16,5 @@ admin.site.register(TechnologicalNews)
 admin.site.register(TechnologicalNewsComment)
 admin.site.register(LocalNews)
 admin.site.register(LocalNewsComment)
+admin.site.register(Articles)
+admin.site.register(ArticlesComment)

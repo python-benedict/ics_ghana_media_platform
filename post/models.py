@@ -138,7 +138,23 @@ class TechnologicalNews(models.Model):
     
     def __str__(self):
         return self.caption 
+
+
+class Articles(models.Model):
+    title = models.CharField(max_length=500, verbose_name="title", blank=True)
+    picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True)
+    caption = models.CharField(max_length=500000, verbose_name="Caption")
+    posted = models.DateTimeField(auto_now_add=True)
+    tag = models.ManyToManyField(Tag, related_name="article")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.IntegerField(default=0)
     
+    #this will help you get all the post associated with the id
+    def get_absolute_url(self):
+        return reverse('post-details', args=[str(self.id)])
+    
+    def __str__(self):
+        return self.title 
 
 
 class Follow(models.Model):
@@ -181,6 +197,12 @@ class TechnologicalNewsComment(models.Model):
     
 class LocalNewsComment(models.Model):
     post = models.ForeignKey(LocalNews, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    
+class ArticlesComment(models.Model):
+    post = models.ForeignKey(Articles, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)

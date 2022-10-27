@@ -16,6 +16,7 @@ urlpatterns = [
     path('newevent/', views.newEvent, name="newevent"),
     path('localnews/', views.localnews, name="localnews"),
     path('internationalnews/', views.internationalnews, name="internationalnews"),
+    path('article/', views.article, name="article"),
     path('technologicalnews/', views.technologicalnews, name="technologicalnews"),
     path('newEvent/<int:id>', views.detail_newEvent, name="detailed_newEvent"),
     path('detail/<int:id>/', views.detail_page, name="detailed_page"),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('internationalnewsDetail/<int:id>/', views.InternationNewsDetailedPage, name="internationalnewsDetail"),
     path('technologicalNewsDetailPage/<int:id>/', views.technologicalNewsDetailPage, name="technologicalNewsDetailPage"),
     path('localnewsdetailedpage/<int:id>/', views.localnewsdetailedpage, name="localnewsdetailedpage"),
+    path('articleDetailedPage/<int:id>/', views.articleDetailedPage, name="articleDetailedPage"),
     path("register/", views.register, name="register"),
     
     

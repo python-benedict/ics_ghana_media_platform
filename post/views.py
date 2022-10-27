@@ -2,10 +2,10 @@ from xml.etree.ElementTree import Comment
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment, TechnologicalNews, LocalNewsComment, LocalNews
+from .models import Tag, Stream, Post, Follow, TreandingPost, NewEvent, Comment, User, Profile, InternationalNews, InternationalNewsComment, TechnologicalNews, LocalNewsComment, LocalNews, Articles, ArticlesComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm, TechnologicalNewsCommentForm, TechnologicalNewsComment, LocalNewsCommentForm
+from .forms import CommentForm, UserRegistrationForm, EditProfileForm, InternationalNewsCommentForm, TechnologicalNewsCommentForm, TechnologicalNewsComment, LocalNewsCommentForm, ArticlesCommentForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -104,6 +104,37 @@ def technologicalNewsDetailPage(request, id):
         'comments': comments,
     }   
     return render(request, 'technologicalnewdetailpage.html', context)
+
+
+
+# Technological News List View here.
+def article(request):
+    posts = Articles.objects.all().order_by('-posted')
+    context = {
+        'post_items' :  posts   
+    }
+    return render(request, "article.html", context)
+
+
+#Technological NEWS Detailed Page
+def articleDetailedPage(request, id):   
+    #Comment form
+    if request.method == 'POST':
+        post = Articles.objects.get(id=id)
+        body = request.POST.get("body")
+        commment = ArticlesComment.objects.create(post=post, user=request.user, body=body)
+        print(commment.body)
+
+    detailed_page = Articles.objects.get(pk=id)
+    comments = ArticlesComment.objects.filter(post=detailed_page).order_by('-date')
+    form = ArticlesCommentForm()
+    
+    context = {
+        'detailed_page':detailed_page,
+        'form':form,
+        'comments': comments,
+    }   
+    return render(request, 'articleDetailedPage.html', context)
 
 
 
