@@ -15,6 +15,7 @@ urlpatterns = [
     path('trending/', views.trending, name="trending"),
     path('newevent/', views.newEvent, name="newevent"),
     path('localnews/', views.localnews, name="localnews"),
+    path('membership/', views.membership, name="membership"),
     path('internationalnews/', views.internationalnews, name="internationalnews"),
     path('article/', views.article, name="article"),
     path('technologicalnews/', views.technologicalnews, name="technologicalnews"),

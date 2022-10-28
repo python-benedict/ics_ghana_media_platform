@@ -9,11 +9,19 @@ from .forms import CommentForm, UserRegistrationForm, EditProfileForm, Internati
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q
+import random
+
 
 
 # Create your views here.
 def home(request):
-    posts = Post.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = Post.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = Post.objects.all().order_by("-posted")
     context = {
         'post_items' :  posts   
     }
@@ -44,9 +52,14 @@ def detail_page(request, id):
 
 
 
-# Create your views here.
+#International news list view page
 def internationalnews(request):
-    posts = InternationalNews.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = InternationalNews.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = InternationalNews.objects.all().order_by("-posted")
     context = {
         'post_items' :  posts   
     }
@@ -78,7 +91,12 @@ def InternationNewsDetailedPage(request, id):
 
 # Technological News List View here.
 def technologicalnews(request):
-    posts = TechnologicalNews.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = TechnologicalNews.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = TechnologicalNews.objects.all().order_by("-posted")
     context = {
         'post_items' :  posts   
     }
@@ -107,9 +125,14 @@ def technologicalNewsDetailPage(request, id):
 
 
 
-# Technological News List View here.
+# Articles News List View here.
 def article(request):
-    posts = Articles.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = Articles.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = Articles.objects.all().order_by("-posted")
     context = {
         'post_items' :  posts   
     }
@@ -140,7 +163,12 @@ def articleDetailedPage(request, id):
 
 # Local News List View here.
 def localnews(request):
-    posts = LocalNews.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = LocalNews.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = LocalNews.objects.all().order_by("-posted")
     context = {
         'post_items' :  posts   
     }
@@ -170,12 +198,17 @@ def localnewsdetailedpage(request, id):
 
 
 
-
+#'trending_items: trendingposts
 #Trending post
 def trending(request):
-    trendingposts = TreandingPost.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = TreandingPost.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = TreandingPost.objects.all().order_by("-posted")
     context = {
-        'trending_items' :  trendingposts   
+        'trending_items' :  posts   
     }
     return render(request, "trending.html", context)
 
@@ -188,9 +221,14 @@ def trending_detailed_page(request, id):
 
 #New Event Post
 def newEvent(request):
-    newEvents = NewEvent.objects.all().order_by('-posted')
+    search_post = request.GET.get('search')  
+    if search_post:
+        posts = NewEvent.objects.filter(Q(title__icontains=search_post) | Q(caption__icontains=search_post))
+    else:
+        # If not searched, return default posts
+        posts = NewEvent.objects.all().order_by("-posted")
     context = {
-        'newEvent_items' :  newEvents   
+        'newEvent_items' :  posts   
     }
     return render(request, "newevent.html", context)
 
@@ -250,4 +288,6 @@ def edit_profile(request):
     return render(request, "edit_profile.html", {'form': form})
 
 
+def membership(request):
+    return render(request, 'membership.html')
 
